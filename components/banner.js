@@ -4,11 +4,11 @@ const Banner = (props) => {
   return <div className={styles.container}>
           <div className={styles.textcontainer}>
             <h1>
-              <span className={styles.title1}>Döner</span>
+              <span className={styles.title2}>Döner</span>
               <span className={styles.title2}>Kebabs</span>
             </h1>
           </div>
-          <p className={styles.subTitle}>Discover your local coffee shops!</p>
+          <p className={styles.subTitle}>Discover your local Döner Kebab restaurants!</p>
           <button className={styles.button} onClick={props.handleOnClick}>{props.buttonText}</button>
         </div>
 }
