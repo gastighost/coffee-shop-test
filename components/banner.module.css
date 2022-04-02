@@ -1,4 +1,8 @@
 /** By default, this is a mobile breakpoint **/
+.large {
+  font-size: 2rem;
+}
+
 .container {
   margin-bottom: 1rem;
 }
@@ -7,6 +11,7 @@
   background-color: white;
   padding: 5px;
   border-radius: 20px;
+  width: 40%;
 }
 
 .title {
@@ -24,6 +29,7 @@
 
 .title2 {
   display: block;
+  font-size: 50px;
   color: var(--text-purple);
 }
 
