@@ -17,7 +17,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Banner buttonText="View Stores Nearby" handleOnClick={handleOnBannerBtnClick}/>
+        <Banner buttonText="Kebabs Nearby" handleOnClick={handleOnBannerBtnClick}/>
+        <div className={styles.heroImage}>
+          <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
+        </div>
       </main>
     </div>
   )
