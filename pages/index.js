@@ -1,7 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Banner from '../components/banner'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import Banner from '../components/banner';
+import Card from '../components/card';
 
 export default function Home() {
 
@@ -21,6 +22,9 @@ export default function Home() {
         <div className={styles.heroImage}>
           <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
         </div>
+        <Card name="Adana Kebap"
+              imgUrl="/static/kebab.png"
+              href="/doner-restaurant/adana-kebap"  />
       </main>
     </div>
   )
