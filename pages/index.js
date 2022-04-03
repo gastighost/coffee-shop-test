@@ -22,9 +22,12 @@ export default function Home() {
         <div className={styles.heroImage}>
           <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
         </div>
-        <Card name="Adana Kebap"
-              imgUrl="/static/kebab.png"
-              href="/doner-restaurant/adana-kebap"  />
+        <div className={styles.cardLayout}>
+          <Card name="Adana Kebap"
+                imgUrl="/static/kebab.png"
+                href="/doner-restaurant/adana-kebap"
+                className={styles.card}  />
+        </div>
       </main>
     </div>
   )
