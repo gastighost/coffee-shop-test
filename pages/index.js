@@ -1,7 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Banner from '../components/banner'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import Banner from '../components/banner';
+import Card from '../components/card';
+
+import kebabStores from '../data/coffee-stores.json';
 
 export default function Home() {
 
@@ -20,6 +23,16 @@ export default function Home() {
         <Banner buttonText="Kebabs Nearby" handleOnClick={handleOnBannerBtnClick}/>
         <div className={styles.heroImage}>
           <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
+        </div>
+        <div className={styles.cardLayout}>
+        {kebabStores.map((kebabStore) => {
+              return (
+                  <Card key={kebabStore.id}
+                        name={kebabStore.name}
+                        imgUrl={kebabStore.imgUrl}
+                        href={`/doner-restaurant/${kebabStore.id}`}
+                        className={styles.card}  />
+                 )})}
         </div>
       </main>
     </div>
