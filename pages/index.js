@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css';
 import Banner from '../components/banner';
 import Card from '../components/card';
 
+import kebabStores from '../data/coffee-stores.json';
+
 export default function Home() {
 
   const handleOnBannerBtnClick = () => {
@@ -23,10 +25,14 @@ export default function Home() {
           <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
         </div>
         <div className={styles.cardLayout}>
-          <Card name="Adana Kebap"
-                imgUrl="/static/kebab.png"
-                href="/doner-restaurant/adana-kebap"
-                className={styles.card}  />
+        {kebabStores.map((kebabStore) => {
+              return (
+                  <Card key={kebabStore.id}
+                        name={kebabStore.name}
+                        imgUrl={kebabStore.imgUrl}
+                        href={`/doner-restaurant/${kebabStore.id}`}
+                        className={styles.card}  />
+                 )})}
         </div>
       </main>
     </div>
