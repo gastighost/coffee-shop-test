@@ -4,9 +4,17 @@ import styles from '../styles/Home.module.css';
 import Banner from '../components/banner';
 import Card from '../components/card';
 
-import kebabStores from '../data/coffee-stores.json';
+import kebabStoresData from '../data/coffee-stores.json';
 
-export default function Home() {
+export async function getStaticProps(context) {
+  return {
+    props: {
+      kebabStores: kebabStoresData,
+    },
+  }
+}
+
+export default function Home(props) {
 
   const handleOnBannerBtnClick = () => {
     console.log("Hi Banner Button!")
@@ -24,16 +32,20 @@ export default function Home() {
         <div className={styles.heroImage}>
           <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
         </div>
-        <div className={styles.cardLayout}>
-        {kebabStores.map((kebabStore) => {
-              return (
-                  <Card key={kebabStore.id}
-                        name={kebabStore.name}
-                        imgUrl={kebabStore.imgUrl}
-                        href={`/doner-restaurant/${kebabStore.id}`}
-                        className={styles.card}  />
-                 )})}
-        </div>
+        {props.kebabStores.length > 0 &&
+        <>
+          <h2 className={styles.heading2}>Berlin Stores</h2>
+          <div className={styles.cardLayout}>
+          {props.kebabStores.map((kebabStore) => {
+                return (
+                    <Card key={kebabStore.id}
+                          name={kebabStore.name}
+                          imgUrl={kebabStore.imgUrl}
+                          href={`/doner-restaurant/${kebabStore.id}`}
+                          className={styles.card}  />
+                    )})}
+          </div>
+        </>}
       </main>
     </div>
   )
