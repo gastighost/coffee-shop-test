@@ -3,19 +3,32 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Banner from '../components/banner';
 import Card from '../components/card';
+import fetch from 'node-fetch';
 
 import kebabStoresData from '../data/coffee-stores.json';
 
 export async function getStaticProps(context) {
+  const url = 'https://api.foursquare.com/v3/places/search?query=kebab&ll=52.517172%2C13.388853&radius=1000';
+  const options = {
+    method: 'GET',
+    headers: {
+    Accept: 'application/json',
+    Authorization: 'fsq34O4YQS4wbIAUmvO48YUz1im2RfWRpoNznmbtssHlbdg='
+    }
+  };
+  const result = await fetch(url, options)
+    .then(res => res.json())
+    .then(json => json.results)
+    .catch(err => console.error('error:' + err))
   return {
     props: {
-      kebabStores: kebabStoresData,
+      kebabStores: await result,
     },
   }
 }
 
 export default function Home(props) {
-
+  console.log(props.kebabStores)
   const handleOnBannerBtnClick = () => {
     console.log("Hi Banner Button!")
   }
@@ -38,10 +51,10 @@ export default function Home(props) {
           <div className={styles.cardLayout}>
           {props.kebabStores.map((kebabStore) => {
                 return (
-                    <Card key={kebabStore.id}
+                    <Card key={kebabStore.fsq_id}
                           name={kebabStore.name}
-                          imgUrl={kebabStore.imgUrl}
-                          href={`/doner-restaurant/${kebabStore.id}`}
+                          imgUrl='https://media.istockphoto.com/photos/close-up-of-kebab-sandwich-picture-id851493796?k=20&m=851493796&s=612x612&w=0&h=jet3Ej7Is9w4KdnqixO4ApvvHfd8jlGGawzqI3CrsDQ='
+                          href={`/doner-restaurant/${kebabStore.fsq_id}`}
                           className={styles.card}  />
                     )})}
           </div>

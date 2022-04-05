@@ -8,20 +8,44 @@ import cls from 'classnames';
 
 import kebabStoresData from '../../data/coffee-stores.json';
 
-export function getStaticProps({params}) {
+export async function getStaticProps({params}) {
+  const url = 'https://api.foursquare.com/v3/places/search?query=kebab&ll=52.517172%2C13.388853&radius=1000';
+  const options = {
+    method: 'GET',
+    headers: {
+    Accept: 'application/json',
+    Authorization: 'fsq34O4YQS4wbIAUmvO48YUz1im2RfWRpoNznmbtssHlbdg='
+    }
+  };
+  const result = await fetch(url, options)
+    .then(res => res.json())
+    .then(json => json.results)
+    .catch(err => console.error('error:' + err))
   return {
     props: {
-      kebabStore: kebabStoresData.find(kebabStore => {
-        return kebabStore.id.toString() === params.id;
+      kebabStore: result.find(kebabStore => {
+        return kebabStore.fsq_id.toString() === params.id;
       })
     }
   }
 }
 
-export function getStaticPaths() {
-  const paths = kebabStoresData.map(kebabStore => {
+export async function getStaticPaths() {
+  const url = 'https://api.foursquare.com/v3/places/search?query=kebab&ll=52.517172%2C13.388853&radius=1000';
+  const options = {
+    method: 'GET',
+    headers: {
+    Accept: 'application/json',
+    Authorization: 'fsq34O4YQS4wbIAUmvO48YUz1im2RfWRpoNznmbtssHlbdg='
+    }
+  };
+  const result = await fetch(url, options)
+    .then(res => res.json())
+    .then(json => json.results)
+    .catch(err => console.error('error:' + err))
+  const paths = result.map(kebabStore => {
     return {
-      params: { id: kebabStore.id.toString() }
+      params: { id: kebabStore.fsq_id.toString() }
     }
   })
   return {
@@ -39,7 +63,7 @@ const DonerRestaurant = (props) => {
     return <div>Loading...</div>
   }
 
-  const {address, name, neighbourhood, imgUrl} = props.kebabStore
+  const {location, name} = props.kebabStore
 
   const handleUpVoteButton = () => {
     console.log("Handle Upvote");
@@ -60,7 +84,7 @@ const DonerRestaurant = (props) => {
                 <div className={styles.nameWrapper}>
                   <h1 className={styles.name}>{name}</h1>
                 </div>
-                <Image src={imgUrl}
+                <Image src='https://media.istockphoto.com/photos/close-up-of-kebab-sandwich-picture-id851493796?k=20&m=851493796&s=612x612&w=0&h=jet3Ej7Is9w4KdnqixO4ApvvHfd8jlGGawzqI3CrsDQ='
                        width={600}
                        height={360}
                        className={styles.storeImg}
@@ -69,12 +93,12 @@ const DonerRestaurant = (props) => {
 
               <div className={cls("glass", styles.col2)}>
                 <div className={styles.iconWrapper}>
-                  <Image src="/static/icon/nearMe.svg" width="24" height="24" alt={address}/>
-                  <p className={styles.text}>{address}</p>
+                  <Image src="/static/icon/nearMe.svg" width="24" height="24" alt={location.formatted_address}/>
+                  <p className={styles.text}>{location.formatted_address}</p>
                 </div>
                 <div className={styles.iconWrapper}>
-                  <Image src="/static/icon/neighborhood.svg" width="24" height="24" alt={neighbourhood}/>
-                  <p className={styles.text}>{neighbourhood}</p>
+                  <Image src="/static/icon/neighborhood.svg" width="24" height="24" alt={location.postcode}/>
+                  <p className={styles.text}>{location.postcode}</p>
                 </div>
                 <div className={styles.iconWrapper}>
                   <Image src="/static/icon/star.svg" width="24" height="24" alt=""/>
