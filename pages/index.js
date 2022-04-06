@@ -40,7 +40,7 @@ export default function Home(props) {
                 return (
                     <Card key={kebabStore.fsq_id}
                           name={kebabStore.name}
-                          imgUrl='https://media.istockphoto.com/photos/close-up-of-kebab-sandwich-picture-id851493796?k=20&m=851493796&s=612x612&w=0&h=jet3Ej7Is9w4KdnqixO4ApvvHfd8jlGGawzqI3CrsDQ='
+                          imgUrl={kebabStore.imgUrl}
                           href={`/doner-restaurant/${kebabStore.fsq_id}`}
                           className={styles.card}  />
                     )})}

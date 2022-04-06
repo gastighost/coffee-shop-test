@@ -41,7 +41,7 @@ const DonerRestaurant = (props) => {
     return <div>Loading...</div>
   }
 
-  const {location, name} = props.kebabStore
+  const {location, name, imgUrl} = props.kebabStore
 
   const handleUpVoteButton = () => {
     console.log("Handle Upvote");
@@ -62,7 +62,7 @@ const DonerRestaurant = (props) => {
                 <div className={styles.nameWrapper}>
                   <h1 className={styles.name}>{name}</h1>
                 </div>
-                <Image src='https://media.istockphoto.com/photos/close-up-of-kebab-sandwich-picture-id851493796?k=20&m=851493796&s=612x612&w=0&h=jet3Ej7Is9w4KdnqixO4ApvvHfd8jlGGawzqI3CrsDQ='
+                <Image src={imgUrl}
                        width={600}
                        height={360}
                        className={styles.storeImg}
