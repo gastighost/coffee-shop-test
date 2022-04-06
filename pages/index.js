@@ -3,26 +3,14 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Banner from '../components/banner';
 import Card from '../components/card';
-import fetch from 'node-fetch';
 
-import kebabStoresData from '../data/coffee-stores.json';
+import { fetchKebabStores } from '../lib/kebab-stores';
 
 export async function getStaticProps(context) {
-  const url = 'https://api.foursquare.com/v3/places/search?query=kebab&ll=52.517172%2C13.388853&radius=1000';
-  const options = {
-    method: 'GET',
-    headers: {
-    Accept: 'application/json',
-    Authorization: 'fsq34O4YQS4wbIAUmvO48YUz1im2RfWRpoNznmbtssHlbdg='
-    }
-  };
-  const result = await fetch(url, options)
-    .then(res => res.json())
-    .then(json => json.results)
-    .catch(err => console.error('error:' + err))
+  const kebabStores = await fetchKebabStores();
   return {
     props: {
-      kebabStores: await result,
+      kebabStores,
     },
   }
 }

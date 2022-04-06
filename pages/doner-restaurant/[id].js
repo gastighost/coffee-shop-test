@@ -6,24 +6,13 @@ import Image from 'next/image';
 import styles from '../../styles/kebab-store.module.css';
 import cls from 'classnames';
 
-import kebabStoresData from '../../data/coffee-stores.json';
+import { fetchKebabStores } from '../../lib/kebab-stores';
 
 export async function getStaticProps({params}) {
-  const url = 'https://api.foursquare.com/v3/places/search?query=kebab&ll=52.517172%2C13.388853&radius=1000';
-  const options = {
-    method: 'GET',
-    headers: {
-    Accept: 'application/json',
-    Authorization: 'fsq34O4YQS4wbIAUmvO48YUz1im2RfWRpoNznmbtssHlbdg='
-    }
-  };
-  const result = await fetch(url, options)
-    .then(res => res.json())
-    .then(json => json.results)
-    .catch(err => console.error('error:' + err))
+  const results = await fetchKebabStores();
   return {
     props: {
-      kebabStore: result.find(kebabStore => {
+      kebabStore: results.find(kebabStore => {
         return kebabStore.fsq_id.toString() === params.id;
       })
     }
@@ -31,19 +20,8 @@ export async function getStaticProps({params}) {
 }
 
 export async function getStaticPaths() {
-  const url = 'https://api.foursquare.com/v3/places/search?query=kebab&ll=52.517172%2C13.388853&radius=1000';
-  const options = {
-    method: 'GET',
-    headers: {
-    Accept: 'application/json',
-    Authorization: 'fsq34O4YQS4wbIAUmvO48YUz1im2RfWRpoNznmbtssHlbdg='
-    }
-  };
-  const result = await fetch(url, options)
-    .then(res => res.json())
-    .then(json => json.results)
-    .catch(err => console.error('error:' + err))
-  const paths = result.map(kebabStore => {
+  const results = await fetchKebabStores();
+  const paths = results.map(kebabStore => {
     return {
       params: { id: kebabStore.fsq_id.toString() }
     }
