@@ -30,7 +30,7 @@ export default function Home(props) {
       <main className={styles.main}>
         <Banner buttonText="Kebabs Nearby" handleOnClick={handleOnBannerBtnClick}/>
         <div className={styles.heroImage}>
-          <Image src="/static/kebab.png" width={120} height={100} alt="kebab" className="heroImage"/>
+          <Image src="/static/kebab.png" width={250} height={210} alt="kebab" className="heroImage"/>
         </div>
         {props.kebabStores.length > 0 &&
         <>
