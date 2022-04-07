@@ -6,6 +6,7 @@ import Card from '../components/card';
 
 import { fetchKebabStores } from '../lib/kebab-stores';
 import useTrackLocation from '../hooks/use-track-location';
+import { useEffect } from 'react';
 
 export async function getStaticProps(context) {
   const kebabStores = await fetchKebabStores();
